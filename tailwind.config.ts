@@ -12,11 +12,13 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "hero-image": "url('/images/hero-image.webp')",
       },
     },
     colors: {
       primary: "#3A5965",
       secondary: "#ff5722",
+      white: "#FFF",
     },
   },
   plugins: [],

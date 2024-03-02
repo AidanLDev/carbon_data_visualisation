@@ -1,8 +1,8 @@
 import {
   ICarbonIntensityResponse,
   GetIntensityDateRequest,
-} from "@/interfaces/carbon-data";
-import { BASE_API_URL } from "./consts";
+} from "@interfaces/carbon-data";
+import { BASE_API_URL } from "@utils/consts";
 
 export async function getCarbonDateRange(
   dateRange: GetIntensityDateRequest
