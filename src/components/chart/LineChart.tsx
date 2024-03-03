@@ -1,39 +1,46 @@
-import { DateTime } from "luxon";
 import {
-  Chart,
+  Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
-
 import { Line } from "react-chartjs-2";
 import { ILineChartProps } from "@/interfaces/chart";
+import { buildChartData } from "@/utils/getData";
 
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Carbon intensity Actual vs Forecast",
+    },
+  },
+};
 
 export default function LineChart({ data, timeZone }: ILineChartProps) {
-  // TODO: Create build chartData function so I only need to loop through the data once rather than once for each label/data in datasets
-  const chartData = {
-    label: data.map((dailyData) =>
-      DateTime.fromISO(dailyData.from, { zone: timeZone }).toLocaleString()
-    ),
-    datasets: [
-      {
-        label: "Actual",
-        data: data.map((dailyData) => dailyData.intensity.actual),
-      },
-      {
-        label: "Forecast",
-        data: data.map((dailyData) => dailyData.intensity.forecast),
-      },
-    ],
-  };
+  const chartData = buildChartData(data, timeZone);
+  console.log(chartData);
   return (
     <div>
-      <Line data={chartData} />
+      <Line options={options} datasetIdKey="id" data={chartData} />
     </div>
   );
 }
