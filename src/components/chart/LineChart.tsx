@@ -15,6 +15,7 @@ import { ILineChartProps } from "@/interfaces/chart";
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function LineChart({ data, timeZone }: ILineChartProps) {
+  // TODO: Create build chartData function so I only need to loop through the data once rather than once for each label/data in datasets
   const chartData = {
     label: data.map((dailyData) =>
       DateTime.fromISO(dailyData.from, { zone: timeZone }).toLocaleString()
