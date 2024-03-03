@@ -32,6 +32,7 @@ export function buildChartData(chartData: ICarbonData[], timeZone: string) {
   let label = [];
   let actual = [];
   let forecast = [];
+  let forecastIndex = [];
 
   for (let i = 0; i < chartData.length; i++) {
     label.push(
@@ -41,6 +42,7 @@ export function buildChartData(chartData: ICarbonData[], timeZone: string) {
     );
     actual.push(chartData[i].intensity.actual);
     forecast.push(chartData[i].intensity.forecast);
+    forecastIndex.push(chartData[i].intensity.index);
   }
 
   const parsedData = {
@@ -50,6 +52,7 @@ export function buildChartData(chartData: ICarbonData[], timeZone: string) {
         id: 1,
         label: "Actual",
         data: actual,
+        forecastIndex,
         borderColor: primaryColour,
         backgroundColor: primaryColourTransparent,
       },
@@ -57,6 +60,7 @@ export function buildChartData(chartData: ICarbonData[], timeZone: string) {
         id: 2,
         label: "Forecast",
         data: forecast,
+        forecastIndex,
         borderColor: secondaryColour,
         backgroundColor: secondaryColourTransparent,
       },
