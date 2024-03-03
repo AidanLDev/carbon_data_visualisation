@@ -13,6 +13,7 @@ export interface IDefaultInputProps {
 
 export interface IInputProps extends IDefaultInputProps {
   type?: InputType;
+  max?: number;
 }
 
 export interface ISelectProps extends IDefaultInputProps {
@@ -31,4 +32,11 @@ export interface ITimeZoneProps {
   setTimeZone: StateSetter<string>;
 }
 
-export interface IFormState extends IDateRangeProps, ITimeZoneProps {}
+export interface IFormState extends IDateRangeProps, ITimeZoneProps {
+  validDateRange: string;
+}
+
+export interface IErrorMessageProps {
+  message: string;
+  isValid: boolean;
+}

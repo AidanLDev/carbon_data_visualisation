@@ -1,5 +1,4 @@
-"use client";
-import { IInputProps } from "@/interfaces/form";
+import { IInputProps } from "@interfaces/form";
 
 export default function Input({
   label,
@@ -7,6 +6,7 @@ export default function Input({
   placeholder,
   value,
   valueSetter,
+  max,
 }: IInputProps) {
   return (
     <div>
@@ -22,6 +22,7 @@ export default function Input({
           value={value}
           onChange={(e) => valueSetter(e.target.value)}
           className="block w-full rounded-md border-0 py-1.5 pl-6 pr-20 text-primary ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus-within:outline-none"
+          maxLength={max}
         />
       </div>
     </div>

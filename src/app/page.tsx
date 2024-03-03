@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import Header from "@/components/Header";
-import { HeroImage } from "@/components/HeroImage";
-import FormContainer from "@/components/form/FormContainer";
+import Header from "@components/Header";
+import { HeroImage } from "@components/HeroImage";
+import FormContainer from "@components/form/FormContainer";
 import { ICarbonData } from "@/interfaces/carbon-data";
-import { getCarbonDateRange } from "@/utils/getData";
-import LineChart from "@/components/chart/LineChart";
+import { getCarbonDateRange } from "@utils/getData";
+import LineChart from "@components/chart/LineChart";
+import { validDateRange } from "@utils/validation";
+import { debounce } from "@utils/utilityFunctions";
 
 export default function Home() {
   const [carbonData, setCarbonData] = useState<ICarbonData[] | null>(null);
@@ -13,16 +15,20 @@ export default function Home() {
   const [to, setTo] = useState("2024-02-27");
   const [timeZone, setTimeZone] = useState("Europe/London");
 
-  useEffect(() => {
-    async function fetchData() {
+  const dateRangeValidation = validDateRange(from, to);
+
+  const debouncedFetchCarbonData = debounce(async () => {
+    if (dateRangeValidation === "") {
       const { data } = await getCarbonDateRange({
         from,
         to,
       });
       setCarbonData(data);
     }
+  }, 750);
 
-    fetchData();
+  useEffect(() => {
+    debouncedFetchCarbonData();
   }, [to, from]);
 
   return (
@@ -36,6 +42,7 @@ export default function Home() {
         setTo={setTo}
         timeZone={timeZone}
         setTimeZone={setTimeZone}
+        validDateRange={dateRangeValidation}
       />
       {carbonData && <LineChart data={carbonData} timeZone={timeZone} />}
     </main>

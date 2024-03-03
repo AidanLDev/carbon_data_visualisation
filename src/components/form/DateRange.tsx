@@ -1,4 +1,3 @@
-"use client";
 import { IDateRangeProps } from "@/interfaces/form";
 import Input from "./Input";
 
@@ -15,6 +14,7 @@ export default function DateRange({
         placeholder="2024-02-20"
         value={from}
         valueSetter={setFrom}
+        max={10}
       />
       <span className="self-end pb-2"> - </span>
       <Input
@@ -22,6 +22,7 @@ export default function DateRange({
         placeholder="2024-02-27"
         value={to}
         valueSetter={setTo}
+        max={10}
       />
     </>
   );

@@ -19,6 +19,7 @@ const config: Config = {
       primary: "#3A5965",
       secondary: "#ff5722",
       white: "#FFF",
+      error: "#FF0000",
     },
   },
   plugins: [],

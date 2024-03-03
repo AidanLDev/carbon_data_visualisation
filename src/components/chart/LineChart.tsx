@@ -37,9 +37,8 @@ const options = {
 
 export default function LineChart({ data, timeZone }: ILineChartProps) {
   const chartData = buildChartData(data, timeZone);
-  console.log(chartData);
   return (
-    <div>
+    <div className="mb-6">
       <Line options={options} datasetIdKey="id" data={chartData} />
     </div>
   );
