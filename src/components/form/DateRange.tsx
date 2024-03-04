@@ -1,5 +1,7 @@
 import { IDateRangeProps } from "@/interfaces/form";
-import Input from "./Input";
+import { DateTime } from "luxon";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function DateRange({
   to,
@@ -7,22 +9,24 @@ export default function DateRange({
   from,
   setFrom,
 }: IDateRangeProps) {
+  const handleDatePickerDateChange = (dates: [Date, Date]) => {
+    const [start, end] = dates;
+    if (start) {
+      setFrom(DateTime.fromJSDate(start));
+    }
+
+    if (end) {
+      setTo(DateTime.fromJSDate(end));
+    }
+  };
   return (
     <>
-      <Input
-        label="From"
-        placeholder="2024-02-20"
-        value={from}
-        valueSetter={setFrom}
-        max={10}
-      />
-      <span className="self-end pb-2"> - </span>
-      <Input
-        label="To"
-        placeholder="2024-02-27"
-        value={to}
-        valueSetter={setTo}
-        max={10}
+      <DatePicker
+        showIcon
+        onChange={handleDatePickerDateChange}
+        selectsRange
+        startDate={new Date(from.toJSDate())}
+        endDate={new Date(to.toJSDate())}
       />
     </>
   );

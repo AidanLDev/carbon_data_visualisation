@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Process Vision - Carbon Data",
   description:
-    "Developed by Aidan Lowson as part of a technical assessment for process vision",
+    "Developed by Aidan Lowson as part of a technical assessment for Process Vision",
 };
 
 export default function RootLayout({

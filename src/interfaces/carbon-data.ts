@@ -1,7 +1,7 @@
 export type GetIntensityDateRequest = {
   from: string;
   to: string;
-}; // // Date in YYYY-MM-DD format e.g. 2017-08-25
+}; // Date in YYYY-MM-DD format e.g. 2017-08-25
 
 export type IntensityIndex =
   | "very low"

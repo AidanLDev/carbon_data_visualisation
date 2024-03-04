@@ -1,6 +1,4 @@
-import { yearMonthDayString } from "./regex";
-
-export const validDateRange = (from: string, to: string): string => {
+export const validDateRange = (from: Date, to: Date): string => {
   const fromDate = new Date(from);
   const toDate = new Date(to);
   const diffDays = Math.ceil(
@@ -18,9 +16,6 @@ export const validDateRange = (from: string, to: string): string => {
   }
   if (diffDays > 14) {
     return "Can't have a range of over 14 days";
-  }
-  if (!yearMonthDayString.test(from) || !yearMonthDayString.test(to)) {
-    return "Date must be in YYYY-DD-MM or YYYY-D-M format";
   }
   return "";
 };

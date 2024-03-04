@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { DateTime } from "luxon";
 
 export type StateSetter<T> = Dispatch<SetStateAction<T>>;
 
@@ -21,10 +22,10 @@ export interface ISelectProps extends IDefaultInputProps {
 }
 
 export interface IDateRangeProps {
-  from: string;
-  setFrom: StateSetter<string>;
-  to: string;
-  setTo: StateSetter<string>;
+  from: DateTime<true>;
+  setFrom: StateSetter<DateTime>;
+  to: DateTime<true>;
+  setTo: StateSetter<DateTime>;
 }
 
 export interface ITimeZoneProps {

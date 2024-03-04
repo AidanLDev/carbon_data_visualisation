@@ -1,5 +1,5 @@
 import {
-  Chart as ChartJS,
+  Chart,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -14,7 +14,7 @@ import { Line } from "react-chartjs-2";
 import { ILineChartProps } from "@/interfaces/chart";
 import { buildChartData } from "@/utils/getData";
 
-ChartJS.register(
+Chart.register(
   CategoryScale,
   LinearScale,
   PointElement,
@@ -24,33 +24,40 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-    title: {
-      display: true,
-      text: "Carbon intensity Actual vs Forecast",
-    },
-    tooltip: {
-      callbacks: {
-        label: function (context: TooltipItem<keyof ChartTypeRegistry>) {
-          let idx = context.dataIndex;
-          let label = (context.dataset.data[idx] as number).toString();
-          let forecastIndex = (context.dataset as any).forecastIndex[idx];
-          return (label += `: Index - ${forecastIndex}`);
+export default function LineChart({ data, timeZone }: ILineChartProps) {
+  const chartData = buildChartData(data, timeZone);
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: "Carbon intensity Actual vs Forecast",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context: TooltipItem<keyof ChartTypeRegistry>) {
+            let idx = context.dataIndex;
+            let label = (context.dataset.data[idx] as number).toString();
+            let forecastIndex = (context.dataset as any).forecastIndex[idx];
+            return [label, `Index - ${forecastIndex}`];
+          },
         },
       },
     },
-  },
-};
-
-export default function LineChart({ data, timeZone }: ILineChartProps) {
-  const chartData = buildChartData(data, timeZone);
+    scales: {
+      x: {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 10,
+        },
+      },
+    },
+  };
   return (
-    <div className="mb-6">
+    <div className="mb-6 px-8 h-[80vh] flex justify-center">
       <Line options={options} datasetIdKey="id" data={chartData} />
     </div>
   );
