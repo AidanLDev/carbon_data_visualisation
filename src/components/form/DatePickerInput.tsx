@@ -1,15 +1,7 @@
 import DatePicker from "react-datepicker";
-import { DateTime } from "luxon";
+import { IDatePickerInputProps } from "@/interfaces/form";
 import "react-datepicker/dist/react-datepicker.css";
 
-export interface IDatePickerInputProps {
-  label: string;
-  date: DateTime<true>;
-  handleDateChange: (date: Date | null, rangeSelected: "start" | "end") => void;
-  dateSelects: "start" | "end";
-  maxDate: Date;
-  minDate?: Date;
-}
 export default function DatePickerInput({
   label,
   date,
@@ -19,7 +11,7 @@ export default function DatePickerInput({
   minDate,
 }: IDatePickerInputProps) {
   return (
-    <div className="flex flex-col justify-between align-end">
+    <div className="flex flex-col justify-between">
       <label className="text-lg text-primary" htmlFor={`${label}-date-picker`}>
         {label}
       </label>
@@ -32,7 +24,8 @@ export default function DatePickerInput({
         onChange={(date) => handleDateChange(date, dateSelects)}
         maxDate={maxDate}
         minDate={minDate}
-        className="pl-6"
+        enableTabLoop={false}
+        className="py-1.5 pl-6 focus:ring-inset focus-visible:outline-secondary"
       />
     </div>
   );

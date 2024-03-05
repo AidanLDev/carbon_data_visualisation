@@ -41,3 +41,12 @@ export interface IErrorMessageProps {
   message: string;
   isValid: boolean;
 }
+
+export interface IDatePickerInputProps {
+  label: string;
+  date: DateTime<true>;
+  handleDateChange: (date: Date | null, rangeSelected: "start" | "end") => void;
+  dateSelects: "start" | "end";
+  maxDate: Date;
+  minDate?: Date;
+}

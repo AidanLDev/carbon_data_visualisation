@@ -17,11 +17,18 @@ export async function getCarbonDateRange({
   from,
   to,
 }: GetIntensityDateRequest): Promise<ICarbonIntensityResponse> {
-  const res = await fetch(`${BASE_API_URL}/intensity/${from}/${to}`);
+  let res;
+  try {
+    res = await fetch(`${BASE_API_URL}/intensity/${from}/${to}`);
+  } catch (e) {
+    throw new Error(
+      `request to ${BASE_API_URL}/intensity/${from}/${to} failed ${e}`
+    );
+  }
 
   if (!res.ok) {
     throw new Error(
-      `Failed to fetch carbon data for date range: ${from} - ${to}`
+      `Failed to fetch carbon data for date range: ${from} - ${to}: ${res}`
     );
   }
 
