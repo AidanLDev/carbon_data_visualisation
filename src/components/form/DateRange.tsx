@@ -1,7 +1,6 @@
 import { IDateRangeProps } from "@/interfaces/form";
 import { DateTime } from "luxon";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePickerInput from "./DatePickerInput";
 
 export default function DateRange({
   to,
@@ -9,24 +8,35 @@ export default function DateRange({
   from,
   setFrom,
 }: IDateRangeProps) {
-  const handleDatePickerDateChange = (dates: [Date, Date]) => {
-    const [start, end] = dates;
-    if (start) {
-      setFrom(DateTime.fromJSDate(start));
+  const handleSelectDate = (
+    date: Date | null,
+    rangeSelected: "start" | "end"
+  ) => {
+    if (date == null) {
+      return;
     }
-
-    if (end) {
-      setTo(DateTime.fromJSDate(end));
+    if (rangeSelected === "start") {
+      setFrom(DateTime.fromJSDate(date));
+    } else {
+      setTo(DateTime.fromJSDate(date));
     }
   };
   return (
     <>
-      <DatePicker
-        showIcon
-        onChange={handleDatePickerDateChange}
-        selectsRange
-        startDate={new Date(from.toJSDate())}
-        endDate={new Date(to.toJSDate())}
+      <DatePickerInput
+        label="From"
+        date={from}
+        dateSelects="start"
+        handleDateChange={handleSelectDate}
+        maxDate={new Date()}
+      />
+      <DatePickerInput
+        label="To"
+        date={to}
+        dateSelects="end"
+        handleDateChange={handleSelectDate}
+        maxDate={from.plus({ days: 14 }).toJSDate()}
+        minDate={from.plus({ days: 1 }).toJSDate()}
       />
     </>
   );
